@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aurelia Academy – Bài kiểm tra Nghe – Nói E-SpeakFlow 01</title>
+<style>
+*{box-sizing:border-box;margin:0}
+:root{--bg:#F5F2FC;--bg2:#FFFFFF;--card:rgba(255,255,255,.8);--ink:#1A1230;--mut:#554C73;--line:rgba(109,40,217,.16);--acc:#6D28D9;--acc2:#8B5CF6;--gold:#8A6A1F;--ok:#0B7A4B;--bad:#B3203F;--orb:rgba(139,92,246,.28);--orb2:rgba(212,178,106,.3);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0B0716;--bg2:#140E25;--card:rgba(28,21,53,.72);--ink:#F3EFFF;--mut:#B8AED8;--line:rgba(167,139,250,.2);--acc:#8B5CF6;--acc2:#A78BFA;--gold:#D4B26A;--ok:#4ADE9A;--bad:#FF8FA8;--orb:rgba(109,40,217,.35);--orb2:rgba(212,178,106,.16);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0B0716;--bg2:#140E25;--card:rgba(28,21,53,.72);--ink:#F3EFFF;--mut:#B8AED8;--line:rgba(167,139,250,.2);--acc:#8B5CF6;--acc2:#A78BFA;--gold:#D4B26A;--ok:#4ADE9A;--bad:#FF8FA8;--orb:rgba(109,40,217,.35);--orb2:rgba(212,178,106,.16);color-scheme:dark}
+html{background:var(--bg);min-height:100%}
+body{min-height:100dvh;display:flex;flex-direction:column;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,"Segoe UI Variable","SF Pro Text",system-ui,sans-serif;overflow-x:clip;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg2)}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(ellipse at 50% 15%,#000 15%,transparent 75%);mask-image:radial-gradient(ellipse at 50% 15%,#000 15%,transparent 75%)}
+.orb{position:fixed;z-index:0;border-radius:50%;filter:blur(70px);pointer-events:none;width:46vmax;height:46vmax;animation:drift 26s ease-in-out infinite alternate}
+.o1{top:-18vmax;left:-12vmax;background:var(--orb)}.o2{bottom:-20vmax;right:-14vmax;background:var(--orb2);animation-delay:-9s}
+@keyframes drift{to{transform:translate(6vmax,4vmax) scale(1.12)}}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--card);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);transition:box-shadow .3s}
+header.sc{box-shadow:0 10px 30px rgba(20,10,50,.28)}
+header .in{width:min(920px,100%);margin:0 auto;padding:.7rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:.6rem;flex-wrap:wrap}
+.br{font-weight:800;letter-spacing:.16em;color:var(--gold);font-size:.95rem}.sub{font-size:.8rem;color:var(--mut)}
+.ctl{display:flex;gap:.5rem}
+.btn{font:inherit;font-weight:700;padding:.7rem 1.2rem;border:0;border-radius:14px;cursor:pointer;color:#fff;background:linear-gradient(135deg,#6D28D9,#7C3AED);transition:transform .15s,box-shadow .2s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(109,40,217,.35)}
+.btn.gh{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line);padding:.5rem .9rem}
+.btn.gh:hover{box-shadow:inset 0 0 0 1px var(--acc2)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:inset 0 0 0 1px var(--line)}
+:focus-visible{outline:2px solid var(--acc2);outline-offset:2px}
+main{flex:1;position:relative;z-index:1;width:min(920px,100%);margin:0 auto;padding:1.6rem 1rem 2.6rem}
+.glass,.card{background:var(--card);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-radius:24px;box-shadow:0 0 0 1px var(--line),0 18px 50px rgba(30,10,80,.12);padding:1.3rem}
+.card{border-radius:20px;margin-bottom:.9rem;opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s}
+.card.in{opacity:1;transform:none}
+h1{font-size:clamp(2rem,7vw,3.5rem);letter-spacing:-.035em;line-height:1.05;background:linear-gradient(110deg,var(--acc),var(--acc2) 50%,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:.1em}
+h2{font-size:1.5rem;letter-spacing:-.02em;margin-bottom:.2rem}h3{font-size:1.1rem;display:flex;justify-content:space-between;gap:1rem;margin:1.4rem 0 .6rem}h4{margin:1.1rem 0 .3rem}
+.mu{color:var(--mut)}p{margin:.5rem 0}
+ul{padding-left:1.2rem;margin:.8rem 0}li{margin:.25rem 0}
+label{font-weight:600;display:block;margin-bottom:.35rem}
+input{width:100%;font:inherit;padding:.7rem .9rem;border:0;border-radius:12px;background:var(--bg2);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.row{display:grid;gap:.8rem;grid-template-columns:1fr 1fr;margin:1rem 0}
+.rise{animation:rise .6s cubic-bezier(.2,.8,.2,1)}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}}
+.prog{display:flex;gap:.4rem;margin:0 0 1rem}.prog i{flex:1;height:6px;border-radius:9px;background:var(--line);transition:background .4s}.prog i.on{background:linear-gradient(90deg,var(--acc),var(--gold))}
+.f{animation:sf .4s cubic-bezier(.2,.8,.2,1)}.b{animation:sb .4s cubic-bezier(.2,.8,.2,1)}
+@keyframes sf{from{opacity:0;transform:translateX(40px)}}@keyframes sb{from{opacity:0;transform:translateX(-40px)}}
+.au{margin:.6rem 0}
+.qh{display:flex;gap:.7rem;align-items:center;margin-bottom:.5rem;font-weight:600}
+.n{flex:none;width:2rem;height:2rem;border-radius:50%;display:grid;place-items:center;background:var(--line);color:var(--ink);font-size:.9rem}
+.opt{display:block;width:100%;text-align:left;font:inherit;color:inherit;padding:.7rem 1rem;margin:.4rem 0;border:0;border-radius:14px;background:transparent;box-shadow:inset 0 0 0 1px var(--line);cursor:pointer;transition:background .2s,box-shadow .2s}
+.opt:hover{box-shadow:inset 0 0 0 1px var(--acc2)}
+.opt.sel{background:#6D28D9;color:#fff;box-shadow:none;animation:pop .3s}
+@keyframes pop{50%{transform:scale(1.03)}}
+.nav{display:flex;justify-content:space-between;gap:1rem;margin-top:1.2rem}
+.big{font-size:clamp(3rem,14vw,5.5rem);font-weight:800;letter-spacing:-.04em;line-height:1}
+.rw{display:grid;grid-template-columns:5.2rem 1fr auto;gap:.7rem;padding:.55rem 0;align-items:start}
+.rw .mk{font-weight:700}.rw.ok .mk{color:var(--ok)}.rw.no .mk{color:var(--bad)}.rw em{display:block;color:var(--mut);font-style:normal;font-size:.9rem}
+.tabs{display:flex;gap:.5rem;margin:.8rem 0}.tabs .btn.on{background:linear-gradient(135deg,#6D28D9,#7C3AED);color:#fff;box-shadow:none}
+.tc{margin-top:.8rem;padding:1rem;border-radius:16px;background:var(--bg2);box-shadow:inset 0 0 0 1px var(--gold);animation:rise .4s}
+.paper,#paper{display:none}
+footer{position:relative;z-index:1;text-align:center;padding:1.4rem 1rem;background:var(--bg2);color:var(--mut);font-size:.85rem;line-height:1.7}
+footer b{color:var(--gold);letter-spacing:.2em}
+@media (max-width:560px){.row{grid-template-columns:1fr}.rw{grid-template-columns:4.4rem 1fr auto}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.card{opacity:1;transform:none}}
+@page{size:A4;margin:14mm}
+@media print{
+html,body{background:#fff!important;color:#000!important;display:block;min-height:0;padding:0;font-size:11pt}
+.bg,.orb,.ctl,#s-start,#s-test,body::before,.noprint{display:none!important}
+*{color:#000!important;background:transparent!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;animation:none!important;-webkit-text-fill-color:#000!important}
+header{position:static}main{padding:0}
+#paper{display:block}#s-res{display:none!important}
+body.pr #paper{display:none!important}body.pr #s-res{display:block!important}
+.card{opacity:1!important;transform:none!important;break-inside:avoid;padding:.4rem 0}
+#paper p{margin:.3rem 0;break-inside:avoid}#paper h3{display:block;margin:.9rem 0 .2rem}
+.ln{display:inline-block;min-width:9em;border-bottom:1px solid #000}
+footer{padding:.6rem 0}
+}
+</style></head><body>
+<div class="bg"></div><div class="orb o1"></div><div class="orb o2"></div>
+<header id="hd"><div class="in"><div><div class="br">AURELIA ACADEMY</div><div class="sub">E-SpeakFlow 01 · Test A1</div></div>
+<div class="ctl"><button class="btn gh" data-act="print">🖨 In A4</button><button class="btn gh" data-act="theme" aria-label="Chuyển chế độ sáng hoặc tối">◐ Sáng / Tối</button></div></div></header>
+<main>
+<section id="s-start" class="scr rise"><div class="glass">
+<h1>Bài kiểm tra Nghe – Nói</h1>
+<p class="mu">Lớp phản xạ A1 · E-SpeakFlow 01 · Tổng 100 điểm</p>
+<ul><li>Phần Nghe gồm 5 Part, 50 điểm. Mỗi đoạn nghe được tối đa 2 lần.</li><li>Dùng tai nghe và bật âm lượng vừa đủ.</li><li>Nộp bài xong, bạn làm Phần Nói (50 điểm) với giáo viên.</li></ul>
+<div class="row"><div><label for="nm">Họ và tên</label><input id="nm" autocomplete="name" placeholder="Nguyễn Văn A"></div><div><label for="cl">Lớp</label><input id="cl" placeholder="E-SpeakFlow 01"></div></div>
+<p id="er" class="mu" role="alert"></p>
+<button class="btn" data-act="start">Bắt đầu làm bài</button></div></section>
+<section id="s-test" class="scr" hidden><div class="prog" id="pg"></div><div id="pt"></div><div class="nav" id="nv"></div></section>
+<section id="s-res" class="scr" hidden></section>
+<div id="paper"></div>
+</main>
+<footer><b>AURELIA ACADEMY</b><div>Contact: 0964 964 264 | Ms. Angie</div><div>© 2026 Aurelia Academy. All rights reserved.</div></footer>
+<script>
+const $=s=>document.querySelector(s),R=document.documentElement,A='ABC';
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const norm=s=>String(s).toLowerCase().replace(/[^a-z0-9 ]/g,'').replace(/\s+/g,' ').trim().replace(/^(a|an|the) /,'');
+const P=[
+{n:'Quick Response',d:'Nghe câu hỏi, chọn đáp án đúng nhất. Mỗi câu 1 điểm.',k:'q',m:1,qs:[
+['Where do you live?',['I’m from Vietnam.','I work as a teacher.','I live in Ho Chi Minh City.'],2],
+['What do you do?',['I work as a teacher.','I like coffee.','I’m twenty-five years old.'],0],
+['Do you like football?',['Yes, I am.','Yes, I do.','Yes, it is.'],1],
+['What time do you wake up?',['I usually have breakfast.','I go to work.','I usually wake up at six.'],2],
+['Who do you live with?',['I live in an apartment.','I live with my parents.','I like my parents.'],1],
+['Is there a TV in your room?',['Yes, there is.','Yes, there are.','Yes, I do.'],0],
+['What do you usually drink in the morning?',['I usually drink coffee.','I usually eat bread.','I like fish.'],0],
+['Why are you learning English?',['At seven o’clock.','With my friends.','Because I want to travel.'],2],
+['What does she do?',['She likes cooking.','She is a doctor.','She lives in Hanoi.'],1],
+['When do you play football?',['On Sundays.','In Hanoi.','With my friends.'],0]]},
+{n:'Listening Detective',d:'Nghe Linh giới thiệu về mình, điền thông tin còn thiếu.',k:'f',
+s:'Hi, my name is Linh. I’m twenty-two years old. I’m from Da Nang, but I live in Ho Chi Minh City. I work as a nurse. In my free time, I like cooking and listening to music. I usually cook on weekends. I’m learning English because I want to travel.',
+f:[['Age',2,['22','twenty-two','twenty two']],['Lives in',2,['Ho Chi Minh City','Ho Chi Minh','HCMC']],['Job',2,['nurse']],['Hobby 1',1,0,'h'],['Hobby 2',1,0,'h'],['She is learning English because she wants to',2,['travel','to travel']]],
+g:{h:[['cooking','cook'],['listening to music','listen to music','music']]}},
+{n:'My Family',d:'Nghe Hung nói về gia đình, chọn đáp án đúng. Mỗi câu 2 điểm.',k:'m',m:2,
+s:'Hi, I’m Hung. There are five people in my family. I live with my parents, my brother and my sister. My father is a doctor. He likes football. My mother is a teacher. She likes cooking. My brother is a student. He likes video games. We usually have dinner together in the evening. I love my family because they are very kind.',
+qs:[['How many people are in Hung’s family?',['Four','Five','Six'],1],['What does his father do?',['He’s a teacher.','He’s a student.','He’s a doctor.'],2],['What does his mother like?',['Cooking','Football','Music'],0],['What does his brother like?',['Football','Video games','Music'],1],['When do they have dinner together?',['In the morning','In the afternoon','In the evening'],2]]},
+{n:'My Room',d:'Nghe Mai tả phòng của mình, chọn True hoặc False. Mỗi câu 2 điểm.',k:'m',m:2,
+s:'Hi, I’m Mai. I live in an apartment. There are three rooms. My favorite room is my bedroom. There is a bed next to the window. There is a desk near the bed. There is a computer on the desk. There are two chairs in my room, but there isn’t a TV. I like my room because it is quiet.',
+qs:[['Mai lives in a house.',['True','False'],1],['There are three rooms.',['True','False'],0],['The bed is next to the window.',['True','False'],0],['The computer is under the desk.',['True','False'],1],['There is a TV in Mai’s room.',['True','False'],1]]},
+{n:'My Day, Food & Drinks',d:'Nghe Nam kể về một ngày của mình, điền thông tin còn thiếu.',k:'f',
+s:'Hi, I’m Nam. I usually wake up at six o’clock. For breakfast, I eat bread and drink coffee. I go to work at seven thirty. I have lunch at twelve. I usually eat rice and fish. I don’t like beef. In the evening, I study English. Finally, I go to bed at ten thirty.',
+f:[['Nam wakes up at',2,['6:00','6','six','six o’clock','6 o’clock']],['For breakfast, he drinks',2,['coffee']],['For lunch, he eats (món 1)',1,0,'f'],['For lunch, he eats (món 2)',1,0,'f'],['He doesn’t like',2,['beef']],['He goes to bed at',2,['10:30','ten thirty','10 30']]],
+g:{f:[['rice'],['fish']]}}];
+const S=[['What’s your name?','Where do you live?','What do you do?','What time do you usually wake up?','What do you like doing?','Why are you learning English?','Who do you live with?','What’s your favorite room?','What do you usually drink in the morning?','Do you like fish?'],
+['Where are you from?','How old are you?','What’s your favorite food?','What do you do on weekends?','What time do you go to bed?','Do you like cooking?','How many people are in your family?','What does your best friend like?','What’s in your room?','What do you usually eat for lunch?']];
+const C=[['where / from','what / favorite food','what time / go to bed','do / like / movies','what / best friend / like'],['where / live','what / do','what time / wake up','why / learn English','who / live with']];
+const T=[['Introduce yourself','My name is… / I’m from… / I live in… / I work as… / I like…'],['My day','I usually wake up… / Then… / After that… / In the evening… / Finally…'],['My hobbies','My favorite hobby is… / I like… / I usually… / with… / because it’s relaxing'],['My family or a friend','This is my… / He (She) is a… / He (She) likes… / We usually… together'],['My room','I live in… / There is… / There are… / next to, near, on… / I like my room because…'],['Food & drinks','I like… / I don’t like… / I usually eat… / I usually drink… / My favorite food is…']];
+let ans={},pl={},cur=0,scr='start',nm='',cl='';
+const mq=matchMedia('(prefers-color-scheme:dark)'),rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+R.dataset.theme=mq.matches?'dark':'light';mq.addEventListener('change',e=>R.dataset.theme=e.matches?'dark':'light');
+addEventListener('scroll',()=>$('#hd').classList.toggle('sc',scrollY>8),{passive:true});
+const io='IntersectionObserver'in window?new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.1}):null;
+const reveal=()=>document.querySelectorAll('.card:not(.in)').forEach(c=>io?io.observe(c):c.classList.add('in'));
+function show(id){scr=id;['start','test','res'].forEach(x=>$('#s-'+x).hidden=x!=id);const e=$('#s-'+id);e.classList.remove('rise');void e.offsetWidth;e.classList.add('rise');scrollTo(0,0)}
+const txt=k=>{const m=k.match(/^p(\d)(?:q(\d+))?$/);return m[2]==null?P[m[1]].s:P[m[1]].qs[m[2]][0]};
+const aud=k=>`<button class="btn gh au" data-act="say" data-k="${k}" ${(pl[k]||0)>=2?'disabled':''}>🔊 Nghe (còn ${2-(pl[k]||0)} lần)</button>`;
+function render(i,d){cur=i;const p=P[i],k='p'+i;
+$('#pg').innerHTML=P.map((_,x)=>`<i class="${x<=i?'on':''}"></i>`).join('');
+let h=`<h2>Part ${i+1} – ${p.n}</h2><p class="mu">${p.d}</p>`;
+if(p.k!='q')h+=aud(k);
+if(p.k=='f')h+=p.f.map((f,j)=>`<div class="card"><label for="${k}f${j}">${j+1}. ${f[0]}</label><input id="${k}f${j}" data-k="${k}f${j}" value="${esc(ans[k+'f'+j]||'')}" autocomplete="off" autocapitalize="off" spellcheck="false"></div>`).join('');
+else h+=p.qs.map((q,j)=>{const id=`${k}q${j}`;return `<div class="card"><div class="qh"><span class="n">${j+1}</span>${p.k=='q'?aud(id):`<span>${q[0]}</span>`}</div>${q[1].map((o,x)=>`<button class="opt${ans[id]===x?' sel':''}" data-act="pick" data-k="${id}" data-v="${x}">${q[1].length>2?`<b>${A[x]}.</b> `:''}${o}</button>`).join('')}</div>`}).join('');
+const e=$('#pt');e.innerHTML=h;e.classList.remove('f','b');void e.offsetWidth;e.classList.add(d<0?'b':'f');
+$('#nv').innerHTML=`<button class="btn gh" data-act="prev" ${i?'':'disabled'}>← Quay lại</button><button class="btn" data-act="${i<P.length-1?'next':'submit'}">${i<P.length-1?'Tiếp theo →':'Nộp bài ✓'}</button>`;
+reveal();if(d)scrollTo({top:0,behavior:rm?'auto':'smooth'})}
+function grade(){let tot=0;const out=P.map((p,i)=>{const k='p'+i,rows=[];let sc=0,mx=0;
+if(p.k=='f'){const used={};p.f.forEach((f,j)=>{const raw=ans[k+'f'+j]||'',v=norm(raw),g=f[3];let ok,e;
+if(g){const s=p.g[g];e=s.map(x=>x[0]).join(' + ');const u=used[g]=used[g]||[],ix=s.findIndex((x,y)=>!u.includes(y)&&x.map(norm).includes(v));ok=!!v&&ix>=0;if(ok)u.push(ix)}else{e=f[2][0];ok=!!v&&f[2].map(norm).includes(v)}
+rows.push({ok,l:f[0],g:raw,e,p:ok?f[1]:0,m:f[1]})})}
+else p.qs.forEach((q,j)=>{const a=ans[`${k}q${j}`],ok=a===q[2];rows.push({ok,l:q[0],g:a==null?'':q[1][a],e:q[1][q[2]],p:ok?p.m:0,m:p.m})});
+rows.forEach(r=>{sc+=r.p;mx+=r.m});tot+=sc;return{p,rows,sc,mx}});return{out,tot}}
+function result(){const{out,tot}=grade(),pc=tot/50*100,band=pc>=90?'🏆 Xuất sắc':pc>=75?'✓ Tốt':pc>=60?'✓ Đạt':pc>=40?'△ Cần luyện thêm':'✗ Cần học lại';
+let h=`<div class="glass"><p class="mu">${esc(nm)||'Học viên'}${cl?' · '+esc(cl):''}</p><h1>Kết quả phần Nghe</h1><div class="big" id="bg">${rm?tot:0}<small class="mu" style="font-size:1.4rem"> / 50</small></div><p><b>${band}</b></p><p class="mu">Điểm Nói (50 điểm) do giáo viên chấm. Tổng điểm = Nghe + Nói.</p></div>`;
+out.forEach((o,i)=>{h+=`<h3>Part ${i+1} – ${o.p.n}<span>${o.sc}/${o.mx}</span></h3><div class="card">${o.rows.map(r=>`<div class="rw ${r.ok?'ok':'no'}"><span class="mk">${r.ok?'✓ Đúng':'✗ Sai'}</span><span>${r.l}${r.ok?'':`<em>Bài làm: ${esc(r.g)||'(bỏ trống)'} · Đáp án: ${r.e}</em>`}</span><b>${r.p}/${r.m}</b></div>`).join('')}</div>`});
+h+=`<h3 class="noprint">Phần Nói · 50 điểm</h3><div class="card noprint"><p class="mu">Giáo viên hỏi và chấm trực tiếp. Chọn đề, làm lần lượt Part A → B → C → D.</p><div class="tabs"><button class="btn gh" data-act="sp" data-v="0">Đề A</button><button class="btn gh" data-act="sp" data-v="1">Đề B</button></div><div id="spb"></div></div>
+<div class="nav noprint"><button class="btn gh" data-act="retry">Làm lại</button><button class="btn" data-act="printres">🖨 In kết quả</button></div>`;
+$('#s-res').innerHTML=h;show('res');sp(0);reveal();
+if(!rm){const t=performance.now(),e=$('#bg');(function f(n){const x=Math.min(1,(n-t)/900);e.firstChild.nodeValue=Math.round(tot*x);if(x<1)requestAnimationFrame(f)})(t)}}
+function sp(v){document.querySelectorAll('[data-act=sp]').forEach((b,x)=>b.classList.toggle('on',x==v));
+$('#spb').innerHTML=`<h4>Part A – Reflex Q&amp;A (20 điểm)</h4><ol>${S[v].map(q=>`<li>${q}</li>`).join('')}</ol><h4>Part B – Ask me! (10 điểm)</h4><p class="mu">Từ từ khóa, đặt câu hỏi hoàn chỉnh:</p><ol>${C[v].map(q=>`<li>${q}</li>`).join('')}</ol><h4>Part C – Talk 45–60 giây (15 điểm) và Part D – Follow-up (5 điểm)</h4><button class="btn" data-act="draw">🎴 Rút thẻ chủ đề</button><div id="tc"></div>`}
+function paper(){let h=`<h2>AURELIA ACADEMY</h2><p><b>Bài kiểm tra Nghe – Nói · E-SpeakFlow 01 (A1)</b></p><p>Họ tên: <span class="ln"></span> Lớp: <span class="ln"></span> Ngày: <span class="ln"></span></p>`;
+P.forEach((p,i)=>{h+=`<h3>Part ${i+1} – ${p.n}</h3><p>${p.d}</p>`;
+h+=p.k=='f'?p.f.map((f,j)=>`<p>${j+1}. ${f[0]} <span class="ln"></span></p>`).join(''):p.qs.map((q,j)=>`<p>${j+1}. ${p.k=='q'?'':q[0]+' '}${q[1].map((o,x)=>(q[1].length>2?A[x]+'. ':'☐ ')+o).join(' &nbsp;/&nbsp; ')}</p>`).join('')});
+$('#paper').innerHTML=h}
+document.addEventListener('input',e=>{if(e.target.dataset.k)ans[e.target.dataset.k]=e.target.value});
+document.addEventListener('click',e=>{const t=e.target.closest('[data-act]');if(!t)return;const a=t.dataset.act;
+if(a=='theme')R.dataset.theme=R.dataset.theme=='dark'?'light':'dark';
+else if(a=='print'){document.body.classList.remove('pr');paper();print()}
+else if(a=='printres'){document.body.classList.add('pr');print();document.body.classList.remove('pr')}
+else if(a=='start'){nm=$('#nm').value.trim();cl=$('#cl').value.trim();if(!nm){$('#er').textContent='⚠ Hãy nhập họ và tên trước khi bắt đầu.';$('#nm').focus();return}ans={};pl={};show('test');render(0,0)}
+else if(a=='next')render(cur+1,1);else if(a=='prev')render(cur-1,-1);
+else if(a=='submit')result();
+else if(a=='retry'){ans={};pl={};show('start')}
+else if(a=='pick'){const k=t.dataset.k;ans[k]=+t.dataset.v;document.querySelectorAll(`.opt[data-k="${k}"]`).forEach(b=>b.classList.toggle('sel',b===t))}
+else if(a=='say'){const k=t.dataset.k;if((pl[k]||0)>=2)return;if(!('speechSynthesis'in window)){t.textContent='Trình duyệt này không phát được âm thanh. Hãy báo giáo viên.';return}
+pl[k]=(pl[k]||0)+1;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(txt(k));u.lang='en-US';u.rate=.85;speechSynthesis.speak(u);t.textContent=`🔊 Nghe (còn ${2-pl[k]} lần)`;if(pl[k]>=2)t.disabled=true}
+else if(a=='sp')sp(+t.dataset.v);
+else if(a=='draw'){const x=T[Math.floor(Math.random()*T.length)];$('#tc').innerHTML=`<div class="tc"><b>${x[0]}</b><br>${x[1]}<br><span class="mu">Chuẩn bị 10 giây, rồi nói 45–60 giây.</span></div>`}});
+</script></body></html>
